@@ -1,0 +1,79 @@
+import { describe, it, expect } from 'vitest';
+import { AdvocatesResource } from '../../../../src/resources/advocacy/advocates.js';
+import { createMockHttpClient } from '../../../helpers/mock-http-client.js';
+
+describe('AdvocatesResource', () => {
+  it('get calls GET /advocate/{id}', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    const mockAdvocate = { Id: 'a1', Name: 'John' };
+    (http.get as any).mockResolvedValue({ Result: true, Advocate: mockAdvocate });
+
+    const result = await advocates.get('a1');
+
+    expect(http.get).toHaveBeenCalledWith('/advocate/a1', undefined);
+    expect(result).toEqual(mockAdvocate);
+  });
+
+  it('get passes boardId param', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    (http.get as any).mockResolvedValue({ Result: true, Advocate: { Id: 'a1' } });
+
+    await advocates.get('a1', { boardId: 'b1' });
+
+    expect(http.get).toHaveBeenCalledWith('/advocate/a1', { boardId: 'b1' });
+  });
+
+  it('list calls GET /advocate', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    const mockResponse = { Result: true, Items: [{ Id: 'a1' }], Total: 1 };
+    (http.get as any).mockResolvedValue(mockResponse);
+
+    const result = await advocates.list({ email: 'test@example.com' });
+
+    expect(http.get).toHaveBeenCalledWith('/advocate', { email: 'test@example.com' });
+    expect(result).toEqual(mockResponse);
+  });
+
+  it('listAll yields all items', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    (http.get as any).mockResolvedValueOnce({
+      Result: true,
+      Items: [{ Id: 'a1' }, { Id: 'a2' }],
+      Total: 2,
+    });
+
+    const items = [];
+    for await (const item of advocates.listAll()) {
+      items.push(item);
+    }
+
+    expect(items).toHaveLength(2);
+  });
+
+  it('invite calls POST /advocate', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    (http.post as any).mockResolvedValue({ Result: true });
+
+    const params = { firstName: 'John', lastName: 'Doe', email: 'john@example.com', boardId: 'b1' };
+    const result = await advocates.invite(params);
+
+    expect(http.post).toHaveBeenCalledWith('/advocate', params);
+    expect(result.Result).toBe(true);
+  });
+
+  it('delete calls DELETE /advocate/{id} with boardId query', async () => {
+    const http = createMockHttpClient();
+    const advocates = new AdvocatesResource(http);
+    (http.delete as any).mockResolvedValue({ Result: true });
+
+    const result = await advocates.delete('a1', 'b1');
+
+    expect(http.delete).toHaveBeenCalledWith('/advocate/a1', { boardId: 'b1' });
+    expect(result.Result).toBe(true);
+  });
+});
