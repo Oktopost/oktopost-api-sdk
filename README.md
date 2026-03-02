@@ -58,7 +58,6 @@ The SDK mirrors the Oktopost API documentation structure:
 | **Streams** | `client.streams` | tabs, streams |
 | **Leads** | `client.leads` | leads, activities, links |
 | **Events** | `client.events` | webhooks, webhookLog |
-| **Integrations** | `client.integrations` | *(direct methods on namespace)* |
 
 ## Pagination
 

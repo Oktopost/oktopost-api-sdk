@@ -6,7 +6,7 @@ Initial release of the Oktopost Node.js SDK.
 
 ### Features
 
-- Full coverage of the Oktopost API v2 across 10 namespaces (37 resource classes)
+- Full coverage of the Oktopost API v2 across 9 namespaces (37 resource classes)
 - Namespace-based API design: `client.publishing.campaigns.list()`
 - Auto-pagination with AsyncIterator (`listAll()`) and `collectAll()` utility
 - Built-in retry with exponential backoff for 429 and 5xx errors

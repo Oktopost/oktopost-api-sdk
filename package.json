@@ -7,10 +7,10 @@
   "homepage": "https://developers.oktopost.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oktopost/oktopost-api-sdk.git"
+    "url": "https://github.com/Oktopost/oktopost-typescript-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/Oktopost/oktopost-api-sdk/issues"
+    "url": "https://github.com/Oktopost/oktopost-typescript-sdk/issues"
   },
   "keywords": [
     "oktopost",
@@ -55,11 +55,11 @@
     "CHANGELOG.md"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -69,14 +69,14 @@
     "prepublishOnly": "npm run typecheck && npm run test && npm run build"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@vitest/coverage-v8": "^3.0.0",
-    "eslint": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.0.0",
     "prettier": "^3.0.0",
-    "tsup": "^8.0.0",
+    "tsdown": "^0.12.0",
     "typescript": "^5.5.0",
     "typescript-eslint": "^8.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^4.0.0"
   }
 }
