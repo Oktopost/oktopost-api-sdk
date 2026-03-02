@@ -2,7 +2,7 @@ import { createHmac } from 'node:crypto';
 import { verifyWebhookSignature, constructEvent } from '../../../src/webhooks/index.js';
 
 function sign(payload: string, secret: string): string {
-  return createHmac('sha256', secret).update(payload).digest('hex');
+  return createHmac('sha1', secret).update(payload).digest('hex');
 }
 
 describe('verifyWebhookSignature', () => {

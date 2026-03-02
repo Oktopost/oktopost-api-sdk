@@ -35,7 +35,7 @@ export function verifyWebhookSignature(
 ): boolean {
   const payloadStr = typeof payload === 'string' ? payload : payload.toString('utf-8');
 
-  const expectedSignature = createHmac('sha256', secret).update(payloadStr).digest('hex');
+  const expectedSignature = createHmac('sha1', secret).update(payloadStr).digest('hex');
 
   const expected = Buffer.from(expectedSignature.toLowerCase(), 'utf-8');
   const actual = Buffer.from(signature.toLowerCase(), 'utf-8');
