@@ -169,12 +169,3 @@ export type {
   WebhookLogEntry,
 } from './events.js';
 
-export type {
-  IntegrationListItem,
-  IntegrationAssets,
-  Integration,
-  IntegrationListParams,
-  IntegrationGetParams,
-  CreateIntegrationParams,
-  UpdateIntegrationParams,
-} from './integrations.js';

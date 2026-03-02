@@ -86,8 +86,6 @@ export {
   WebhookLogResource,
 } from './resources/events/index.js';
 
-export { IntegrationsNamespace } from './resources/integrations/index.js';
-
 export type {
   BaseApiResponse,
   SingleApiResponse,
@@ -259,12 +257,3 @@ export type {
   WebhookLogEntry,
 } from './types/events.js';
 
-export type {
-  IntegrationListItem,
-  IntegrationAssets,
-  Integration,
-  IntegrationListParams,
-  IntegrationGetParams,
-  CreateIntegrationParams,
-  UpdateIntegrationParams,
-} from './types/integrations.js';

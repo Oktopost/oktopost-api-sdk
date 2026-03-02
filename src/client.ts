@@ -8,7 +8,6 @@ import { ApprovalsNamespace } from './resources/approvals/index.js';
 import { StreamsNamespace } from './resources/streams/index.js';
 import { LeadsNamespace } from './resources/leads/index.js';
 import { EventsNamespace } from './resources/events/index.js';
-import { IntegrationsNamespace } from './resources/integrations/index.js';
 import type { MeResponse, OktopostRequestInfo, OktopostResponseInfo } from './types/common.js';
 
 export interface OktopostConfig {
@@ -39,7 +38,6 @@ export class Oktopost {
   readonly streams: StreamsNamespace;
   readonly leads: LeadsNamespace;
   readonly events: EventsNamespace;
-  readonly integrations: IntegrationsNamespace;
 
   constructor(config: OktopostConfig) {
     if (!config.accountId) {
@@ -71,7 +69,6 @@ export class Oktopost {
     this.streams = new StreamsNamespace(this.httpClient);
     this.leads = new LeadsNamespace(this.httpClient);
     this.events = new EventsNamespace(this.httpClient);
-    this.integrations = new IntegrationsNamespace(this.httpClient);
   }
 
   async me(): Promise<MeResponse> {
