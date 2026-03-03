@@ -6,6 +6,7 @@ export interface WebhookConfig {
   Url: string;
   LastExecutionDate: string;
   IsEnabled: number;
+  IsHidden: number;
   Created: string;
   Modified: string;
   Secret?: string;
@@ -25,6 +26,7 @@ export interface CreateWebhookConfigParams {
   url: string;
   description?: string;
   isEnabled?: 0 | 1;
+  isHidden?: 0 | 1;
 }
 
 export interface UpdateWebhookConfigParams {
@@ -33,6 +35,7 @@ export interface UpdateWebhookConfigParams {
   url?: string;
   description?: string;
   isEnabled?: 0 | 1;
+  isHidden?: 0 | 1;
 }
 
 export interface WebhookLogEntry {

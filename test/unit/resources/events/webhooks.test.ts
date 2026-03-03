@@ -57,6 +57,19 @@ describe('WebhookConfigsResource', () => {
     expect(result).toEqual(mockWebhook);
   });
 
+  it('create passes isHidden parameter', async () => {
+    const http = createMockHttpClient();
+    const webhooks = new WebhookConfigsResource(http);
+    const mockWebhook = { Id: 'wh1', Name: 'Hidden', IsHidden: 1 };
+    (http.post as any).mockResolvedValue({ Result: true, Webhook: mockWebhook });
+
+    const params = { event: 'postCreated', name: 'Hidden', url: 'https://example.com/hook', isHidden: 1 as const };
+    const result = await webhooks.create(params);
+
+    expect(http.post).toHaveBeenCalledWith('/webhook', params);
+    expect(result).toEqual(mockWebhook);
+  });
+
   it('update calls POST /webhook/{id} and returns Webhook', async () => {
     const http = createMockHttpClient();
     const webhooks = new WebhookConfigsResource(http);
@@ -66,6 +79,18 @@ describe('WebhookConfigsResource', () => {
     const result = await webhooks.update('wh1', { name: 'Updated' });
 
     expect(http.post).toHaveBeenCalledWith('/webhook/wh1', { name: 'Updated' });
+    expect(result).toEqual(mockWebhook);
+  });
+
+  it('update passes isHidden parameter', async () => {
+    const http = createMockHttpClient();
+    const webhooks = new WebhookConfigsResource(http);
+    const mockWebhook = { Id: 'wh1', Name: 'Updated', IsHidden: 1 };
+    (http.post as any).mockResolvedValue({ Result: true, Webhook: mockWebhook });
+
+    const result = await webhooks.update('wh1', { isHidden: 1 });
+
+    expect(http.post).toHaveBeenCalledWith('/webhook/wh1', { isHidden: 1 });
     expect(result).toEqual(mockWebhook);
   });
 
